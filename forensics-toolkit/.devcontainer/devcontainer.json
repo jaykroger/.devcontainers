@@ -33,8 +33,9 @@
       // Set *default* container settings.json values on container create.
       "settings": {},
       "extensions": [
-        "github.vscode-github-actions",
-        "ms-vscode.powershell",
+        "dbcode.dbcode",
+        "ms-python.python",
+        "ms-vscode.hexeditor",
         "redhat.vscode-yaml"
       ]
     }
