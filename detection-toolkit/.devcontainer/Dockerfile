@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # ============================================
 # Download Atomic Red Team Repository
 # ============================================
-ENV HOMe=/home/$USERNAME
+ENV HOME=/home/$USERNAME
 RUN git clone https://github.com/redcanaryco/atomic-red-team $HOME/AtomicRedTeam
 
 # ============================================
