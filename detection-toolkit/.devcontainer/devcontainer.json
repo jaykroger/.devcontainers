@@ -1,0 +1,61 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+  "name": "Detection Engineering Toolkit Container",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USERNAME": "${localEnv:USER}"
+    }
+  },
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "upgradePackages": false,
+      "username": "${localEnv:USER}",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    },
+
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.14",
+      "toolsToInstall": "sigma-cli"
+    },
+
+    "ghcr.io/devcontainers/features/powershell:2": {
+      "version": "7.5",
+      "modules": "invoke-atomicredteam,powershell-yaml"
+    },
+
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+
+    "ghcr.io/devcontainers/features/azure-cli:1": {}
+  },
+
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container settings.json values on container create.
+      "settings": {},
+      "extensions": [
+        "github.vscode-github-actions",
+        "ms-vscode.powershell",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+
+  "mounts": [
+    "source=${localEnv:DOTFILES_DIR:/dev/null},target=/tmp/dotfiles/,type=bind,readonly"
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh"
+}

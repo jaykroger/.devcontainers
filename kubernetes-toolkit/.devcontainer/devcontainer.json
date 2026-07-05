@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+  "name": "Kubernetes Toolkit Container",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USERNAME": "${localEnv:USER}"
+    }
+  },
+
+  "runArgs": ["--net=host"],
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "upgradePackages": false,
+      "username": "${localEnv:USER}",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    },
+
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+
+    "ghcr.io/devcontainers/features/azure-cli:1": {}
+  },
+
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container settings.json values on container create.
+      "settings": {},
+      "extensions": [
+        "github.vscode-github-actions",
+        "ms-azuretools.vscode-containers",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+
+  "mounts": [
+    "source=${localEnv:DOTFILES_DIR:/dev/null},target=/tmp/dotfiles/,type=bind,readonly",
+    // Mount Kubernetes credentials to persist across container restarts
+    "source=${localEnv:HOME}/.kube,target=/home/${localEnv:USER}/.kube,type=bind",
+    "source=${localEnv:HOME}/.talos,target=/home/${localEnv:USER}/.talos,type=bind"
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh"
+}

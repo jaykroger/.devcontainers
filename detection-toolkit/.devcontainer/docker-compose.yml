@@ -1,0 +1,24 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: ${localEnv:USER}
+    container_name: detection_toolkit
+    network_mode: host
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  elastic-agent-sidecar:
+    image: docker.elastic.co/elastic-agent/elastic-agent:9.4.3
+    contaner_name: devcontainer_elastic_agent_sidecar
+    restart: unless-stopped
+    network_mode: service:devcontainer
+    pid: service:detection-toolkit
+    environment:
+      FLEET_ENROLL: 1
+      FLEET_ENROLLMENT_TOKEN: ${localEnv:FLEET_ENROLLMENT_TOKEN}
+      FLEET_URL: ${localEnv:FLEET_URL}
+      FLEET_INSECURE: false
+      
+

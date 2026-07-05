@@ -1,0 +1,50 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+  "name": "Python Dev Container",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USERNAME": "${localEnv:USER}"
+    }
+  },
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "upgradePackages": false,
+      "username": "${localEnv:USER}",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    }
+  },
+
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container settings.json values on container create.
+      "settings": {},
+      "extensions": [
+        "dbcode.dbcode",
+        "github.vscode-github-actions",
+        "ms-python.python",
+        "njpwerner.autodocstring",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  },
+
+  "mounts": [
+    "source=${localEnv:DOTFILES_DIR:/dev/null},target=/tmp/dotfiles/,type=bind,readonly"
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh"
+}
