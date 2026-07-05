@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-  "name": "Terraform Dev Container",
+  "name": "Posture Toolkit Container",
   "build": {
     "context": ".",
     "dockerfile": "Dockerfile",
@@ -34,10 +34,10 @@
       "extensions": [
         "amazonwebservices.aws-toolkit-vscode",
         "github.vscode-github-actions",
-        "hashicorp.hcl",
-        "hashicorp.terraform",
         "ms-azuretools.vscode-azureresourcegroups",
+        "ms-azuretools.vscode-containers",
         "ms-vscode.azure-account",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
         "redhat.vscode-yaml"
       ]
     }
