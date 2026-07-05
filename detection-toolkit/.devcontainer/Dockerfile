@@ -18,10 +18,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ca-certificates \
     dnsutils \
+    git \
     gnupg \
     iputils-ping \
     jq \
     yq 
+
+# ============================================
+# Download Atomic Red Team Repository
+# ============================================
+ENV HOMe=/home/$USERNAME
+RUN git clone https://github.com/redcanaryco/atomic-red-team $HOME/AtomicRedTeam
 
 # ============================================
 # Install Starship for terminal customization
